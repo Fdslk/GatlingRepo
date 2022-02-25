@@ -7,14 +7,20 @@ class CodeReuseWithObjects extends Simulation{
   val httpConf = http.baseUrl("http://localhost:8080/app/")
     .header("Accept", "application/json")
 
-  def getAllVideoGames() = exec(http("Get all video games - 1st call")
-    .get("videogames")
-  .check(status.is(200)))
+  def getAllVideoGames() = {
+    repeat(3){
+      exec(http("Get all video games - 1st call")
+        .get("videogames")
+        .check(status.is(200)))
+    }
+  }
 
   def checkSpecificVideoGame() = {
-    exec(http("get specific video game")
-      .get("videogames/1")
-    .check(status.in(200 to 210)))
+    repeat(5) {
+      exec(http("get specific video game")
+        .get("videogames/1")
+        .check(status.in(200 to 210)))
+    }
   }
 
   val scn = scenario("Code reuse")
