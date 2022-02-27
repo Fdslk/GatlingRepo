@@ -17,3 +17,8 @@ Gatling 3 Fundamentals
         * atOnceUsers 测试并发量
       * 设置http configuration
         * protocols
+      * 设置测试的并发量
+  * 执行测试采用cmd模式
+    * ```mvn gatling:test -Dgatling.simulationClass=simulations.RunTimeParameters```
+    * 参数前面加上-D表示读取命令行中的参数
+      * eg: ```mvn gatling:test -Dgatling.simulationClass=simulations.RunTimeParameters -DUSERS=10 -DRAMP_DURATION=5 -DDURATION=30```
